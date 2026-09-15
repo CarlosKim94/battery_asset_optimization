@@ -79,6 +79,7 @@ degradation_cost = st.sidebar.number_input(
     "Degradation cost (€/MWh)",
     min_value=0.0,
     value=5.0,
+    help="Estimated cost of battery wear caused by charging and discharging. It discourages unnecessary cycling and represents the economic value of battery lifetime.",
 )
 
 run = st.sidebar.button(
@@ -127,7 +128,7 @@ if run:
         # KPI cards
         # -------------------------------------------------
 
-        col1, col2, col3, col4 = st.columns(4)
+        col1, col2, col3 = st.columns(3)
 
         col1.metric(
             "Expected Profit",
@@ -143,17 +144,6 @@ if run:
             "Realized Uplift",
             f"€{result['realized_uplift_eur']:,.2f}",
         )
-
-        if result["validation"]["valid"]:
-            col4.metric(
-                "Solution",
-                "✓ OPTIMAL",
-            )
-        else:
-            col4.metric(
-                "Solution",
-                "⚠ INVALID",
-            )
 
         # -------------------------------------------------
         # Dispatch dataframe
